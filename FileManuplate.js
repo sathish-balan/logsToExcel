@@ -47,7 +47,7 @@ function processLogs (errorResultData) {
             }
             workbook.xlsx.writeFile(excelFilename)
                 .then(function(){
-                    // helper.openFile(path);
+                    console.log('XSLX file save successfully');
                 });
             // worksheet.commit();
         });
