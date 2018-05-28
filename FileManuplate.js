@@ -57,20 +57,3 @@ function checkDateFormate(dateValue) {
     return moment(dateValue, "YYYY-MM-DD HH:mm:ss").isValid();
 }
 
-
-// var excel = require("exceljs"); 2018-04-17 07:52:36
-// var workbook1 = new excel.Workbook();
-// workbook1.creator = 'Me';
-// workbook1.lastModifiedBy = 'Me';
-// workbook1.created = new Date();
-// workbook1.modified = new Date();
-// var sheet1 = workbook1.addWorksheet('Sheet1');
-// var reColumns=[
-//     {header:'FirstName',key:'firstname'},
-//     {header:'LastName',key:'lastname'},
-//     {header:'Other Name',key:'othername'}
-// ];
-// sheet1.columns = reColumns;
-// workbook1.xlsx.writeFile("./error.xlsx").then(function() {
-//     console.log("xlsx file is written.");
-// });
