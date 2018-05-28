@@ -1,0 +1,35 @@
+2018-04-17 07:39:22 error : compilation of '_WebAppHtmlTemplates.dll' failed : 5 error(s)
+f:\Sinequa\local-data\plugins\build\_WebAppHtmlTemplates\_v10_Box_Tree.cs(29,13) : error CS1061: 'Sinequa.Configuration.CCBox' does not contain a definition for 'TreeAsyncInitialLoad' and no extension method 'TreeAsyncInitialLoad' accepting a first argument of type 'Sinequa.Configuration.CCBox' could be found (are you missing a using directive or an assembly reference?)
+f:\Sinequa\local-data\plugins\build\_WebAppHtmlTemplates\_v10_Box_Tree_v2.cs(29,13) : error CS1061: 'Sinequa.Configuration.CCBox' does not contain a definition for 'TreeAsyncInitialLoad' and no extension method 'TreeAsyncInitialLoad' accepting a first argument of type 'Sinequa.Configuration.CCBox' could be found (are you missing a using directive or an assembly reference?)
+f:\Sinequa\local-data\plugins\build\_WebAppHtmlTemplates\_v10_ResultsView_List.cs(64,67) : error CS1501: No overload for method 'GetActionStatus' takes 5 arguments
+f:\Sinequa\local-data\plugins\build\_WebAppHtmlTemplates\_v10_ResultsView_List.cs(66,70) : error CS1061: 'Sinequa.Search.Doc' does not contain a definition for 'AuditEvent' and no extension method 'AuditEvent' accepting a first argument of type 'Sinequa.Search.Doc' could be found (are you missing a using directive or an assembly reference?)
+f:\Sinequa\local-data\plugins\build\_WebAppHtmlTemplates\_v10_ResultsView_List.cs(89,18) : error CS1501: 
+7 07:52:35 Processing FR-718 done : 0 ms
+2018-04-17 07:52:35 Processing '' ... ( -> file.htm)
+2018-04-17 07:52:35 4364 : FR-699 -> sent ok
+2018-04-17 07:52:35 Processing FR-699 done : 0 ms
+2018-04-17 07:52:35 Processing '' ... ( -> file.htm)
+2018-04-17 07:52:35 4365 : FR-698 -> sent ok
+2018-04-17 07:52:35 Processing FR-698 done : 0 ms
+2018-04-17 07:52:35 Processing '' ... ( -> file.htm)
+2018-04-17 07:52:35 4366 : FR-719 -> sent ok
+2018-04-17 07:52:35 Processing FR-719 done : 0 ms
+2018-04-17 07:52:36 Processing '' ... ( -> file.htm)
+2018-04-17 07:52:36 4367 : FR-720 -> sent ok
+2018-04-17 07:52:36 Processing FR-720 done : 0 ms
+2018-04-17 07:52:36 WARNING : connector errors -> Delete cancelled
+2018-04-17 07:52:36           check 'Allow deletion on errors' in the advanced tab of your collection ('/DB/GPC2/') if you want to delete anyway
+2018-04-17 07:52:36 indexation stop ok : 0 ms
+2018-04-17 07:52:36 indexation stop ok : 0 ms
+2018-04-17 07:52:36 indexing collection DB/GPC2 finished with error(s) : 13 min 13 s 47 ms
+2018-04-17 07:52:36 ---------------------------------------------------------------------------------
+2018-04-17 07:52:36 Collection statistics:
+2018-04-17 07:52:36     4367 document(s) updated
+2018-04-17 07:52:36     0 document(s) added
+2018-04-17 07:52:36     0 document(s) unchanged
+2018-04-17 07:52:36     0 document(s) deleted
+2018-04-17 07:52:36     0 document(s) in error
+2018-04-17 07:52:36     0 document(s) with warnings
+2018-04-17 07:52:36 ---------------------------------------------------------------------------------
+2018-04-17 07:52:36 sinequa.connector.db error (2018-04-17 07:52:36) : 13 min 18 s 469 ms
+2018-04-17 07:52:36 exit code : connector errors
