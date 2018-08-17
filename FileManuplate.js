@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var filesPath = require('path');
 var filesFs = require('fs');
-var filePath = path.join(__dirname, 'log.txt');
+// var filePath = path.join(__dirname, 'log.txt');
 var stringSearcher = require('string-search');
 var excelFilename = './SujaiLogFile-1.xlsx';
 var Excel = require('exceljs');
@@ -28,7 +28,6 @@ function fromDir(startPath, filter, callback) {
                 fromDir(filename, filter, callback); //recurse
             } else if (filter.test(filename)) {
                 callback(filename);
-                COUNTCONST++;
             }
         };
         resolve();
@@ -39,9 +38,11 @@ function fromDir(startPath, filter, callback) {
 fromDir('./SinequaLogs',/\.txt$/,function(filename) {
     console.log('-- found: ',filename);
     var timenow= filesFs.statSync(filename).mtime.getTime()
-    var timenow1=moment(timenow);
-    if (moment().diff(timenow1, 'days') === 0) {
+    var timenow1=moment(timenow).format('YYYY MM DD');
+    var timenow2=moment().format('YYYY MM DD');
+    if (timenow1 === timenow2) {
         processFiles(filename);
+        COUNTCONST++; // COUNTCONST = COUNTCONST + 1;
     }
 }).then(function () {
     if (COUNTCONST === 0) {
@@ -50,7 +51,7 @@ fromDir('./SinequaLogs',/\.txt$/,function(filename) {
     }
 });
 
-function processFiles () {
+function processFiles (filePath) {
     fs.readFile(filePath, { encoding: 'utf-8' }, function(err, buffer) {
         if (err) {
             console.error(err);
@@ -73,6 +74,7 @@ function processLogs (errorResultData) {
             var selectCurrentSheet = (moment().format('MMM')).toString();
             var tempResult = '';
             var tempData = '';
+            var checkFormateData = '';
             if (workbook.getWorksheet(selectCurrentSheet)) {
                 worksheet = workbook.getWorksheet(selectCurrentSheet);
             } else {
@@ -81,7 +83,8 @@ function processLogs (errorResultData) {
             if (errorResultData.length && errorResultData.length !== 0) {
                 for(var i=0; i<errorResultData.length; i++) {
                     tempData = errorResultData[i+1];
-                    if(checkDateFormate(i === (errorResultData.length-1) || tempData.text.substring(0, 19))) {
+                    checkFormateData = ifCorrectDateFormat(i === (errorResultData.length-1) || tempData.text.substring(0, 19));
+                    if(checkFormateData) {
                         if (tempResult === '') {
                             worksheet.addRow([currentDate, verifiedBy, errorResultData[i].text, ''])
                         } else {
@@ -102,7 +105,16 @@ function processLogs (errorResultData) {
         });
 }
 
-function checkDateFormate(dateValue) {
-    return moment(dateValue, "YYYY-MM-DD HH:mm:ss").isValid();
+function ifCorrectDateFormat(dateValue) {
+    return moment(dateValue, 'YYYY-MM-DD HH:mm:ss').isValid();
 }
+
+// tobe removed
+// function ifCurrentDate(dateValue) {
+//     if (ifCorrectDateFormat(dateValue)) {
+//         moment().format('YYYY-MM-DD HH:mm:ss') === moment(dateValue).format('YYYY-MM-DD HH:mm:ss') ? true : false;
+//     } else {
+//         return false;
+//     }
+// }
 
