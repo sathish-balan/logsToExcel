@@ -7,41 +7,46 @@ var stringSearcher = require('string-search');
 var excelFilename = './SujaiLogFile-1.xlsx';
 var Excel = require('exceljs');
 var moment = require('moment');
+var COUNTCONST = 0;
 
 
-function fromDir(startPath,filter,callback){
+function fromDir(startPath, filter, callback) {
+    return new Promise(function(resolve, reject) {
 
-    //console.log('Starting from dir '+startPath+'/');
-
-    if (!filesFs.existsSync(startPath)){
-        console.log("no dir ",startPath);
-        return;
-    }
-
-    var files=filesFs.readdirSync(startPath);
-    console.log(files.length);
-
-    // if (files.length) {
-    //     emptyLog.txt
-    // }
-    for(var i=0;i<files.length;i++){
-        var filename=filesPath.join(startPath,files[i]);
-        var stat = filesFs.lstatSync(filename);
-        if (stat.isDirectory()) {
-            console.log(filename);
-            fromDir(filename,filter,callback); //recurse
+        if (!filesFs.existsSync(startPath)) {
+            // console.log("no dir ", startPath);
+            return;
         }
-        else if (filter.test(filename)) callback(filename);
-    };
+
+        var files = filesFs.readdirSync(startPath);
+
+        for (var i = 0; i < files.length; i++) {
+            var filename = filesPath.join(startPath, files[i]);
+            var stat = filesFs.lstatSync(filename);
+            if (stat.isDirectory()) {
+                // console.log(filename);
+                fromDir(filename, filter, callback); //recurse
+            } else if (filter.test(filename)) {
+                callback(filename);
+                COUNTCONST++;
+            }
+        };
+        resolve();
+    });
 };
+
 
 fromDir('./SinequaLogs',/\.txt$/,function(filename) {
     console.log('-- found: ',filename);
     var timenow= filesFs.statSync(filename).mtime.getTime()
     var timenow1=moment(timenow);
-    //console.log(moment().diff(timenow1, 'days'));
     if (moment().diff(timenow1, 'days') === 0) {
-        //processFiles(filename);
+        processFiles(filename);
+    }
+}).then(function () {
+    if (COUNTCONST === 0) {
+        console.log('EMPTY');
+        processLogs({});
     }
 });
 
@@ -68,8 +73,12 @@ function processLogs (errorResultData) {
             var selectCurrentSheet = (moment().format('MMM')).toString();
             var tempResult = '';
             var tempData = '';
-            worksheet = workbook.getWorksheet(selectCurrentSheet);
-            if (errorResultData.length !== 0) {
+            if (workbook.getWorksheet(selectCurrentSheet)) {
+                worksheet = workbook.getWorksheet(selectCurrentSheet);
+            } else {
+                worksheet = workbook.addWorksheet(selectCurrentSheet);
+            }
+            if (errorResultData.length && errorResultData.length !== 0) {
                 for(var i=0; i<errorResultData.length; i++) {
                     tempData = errorResultData[i+1];
                     if(checkDateFormate(i === (errorResultData.length-1) || tempData.text.substring(0, 19))) {
